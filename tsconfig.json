@@ -1,0 +1,31 @@
+{
+  "include": ["app"],
+  "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": "./",
+    "typeRoots": ["../node_modules/@types"],
+    "types": ["node"],
+    "module": "commonjs",
+    "declaration": false,
+    "declarationMap": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "strict": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "noUnusedParameters": true,
+    "target": "ES2020",
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "lib": ["es2020", "dom"],
+    "esModuleInterop": true,
+    "paths": {
+      "@ss-image-saw/*": ["app/*/src"]
+    },
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false
+  },
+  "exclude": ["app/*/dist"]
+}

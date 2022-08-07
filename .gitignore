@@ -1,0 +1,91 @@
+### Node ###
+# Node
+node_modules
+npm-debug.log
+.env
+package-lock.json
+*.zip
+
+# Optional npm cache directory
+.npm
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.nyc_output
+
+# Sonar
+.scannerwork
+
+# Compiled output
+dist/
+/dist
+app/*/dist
+obfuscated
+/tmp
+
+# Cloudformations
+app/*/cloudformations/packaged-template-*.yaml
+
+# Coverage directory used by tools like istanbul
+coverage
+.coverage
+
+# nyc test coverage
+.nyc_output
+
+# Optional eslint cache
+.eslintcache
+
+# Yarn Integrity file
+.yarn-integrity
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.pnp.*
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# DEPENDENCIES_LICENSES
+DEPENDENCIES_LICENSES
+
+# gitlab
+gitlab_personal_token
+
+# opt folders
+app/backend/src/lambdas/**/**/common
+app/backend/scripts/tools/*.js
+
+# aws exports
+app/frontend/src/aws-exports.js
+
+# python virtual env
+venv
+
+app/backend/node_modules
