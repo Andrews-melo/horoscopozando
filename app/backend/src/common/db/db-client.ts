@@ -2,7 +2,7 @@ import { AWSError } from 'aws-sdk/lib/error';
 import { PromiseResult } from 'aws-sdk/lib/request';
 import AWS, { DynamoDB } from 'aws-sdk';
 
-export interface DbClientInterface {
+export interface DBClientInterface {
   put(params: DynamoDB.PutItemInput);
   update(params: DynamoDB.UpdateItemInput);
   query(params: DynamoDB.QueryInput): Promise<PromiseResult<DynamoDB.QueryOutput, AWSError>>;
@@ -11,7 +11,7 @@ export interface DbClientInterface {
   delete(params: DynamoDB.Delete);
 }
 
-export class DbClient implements DbClientInterface {
+export class DBClient implements DBClientInterface {
   private readonly documentClient: AWS.DynamoDB;
 
   constructor() {

@@ -1,8 +1,9 @@
 import { JsonObject, JsonProperty } from 'json2typescript';
 import { Constants } from '../utils/constants';
+import { BaseModel } from './base.model';
 
 @JsonObject('Horoscopozando')
-export class Horoscopozando {
+export class Horoscopozando extends BaseModel {
   @JsonProperty('id', String)
   private _id = Constants.EMPTY_STRING;
 
@@ -34,5 +35,9 @@ export class Horoscopozando {
 
   public set sign(value) {
     this._sign = value;
+  }
+
+  public static fromJsonObject(jsonObject: object) {
+    return Horoscopozando.fromJsonObjectClass(jsonObject, Horoscopozando);
   }
 }
