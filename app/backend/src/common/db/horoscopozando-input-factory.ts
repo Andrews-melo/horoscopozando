@@ -23,12 +23,11 @@ export class HoroscopozandoInputFactory {
         ':id_sign': { S: IdSign },
         ':id': { S: id }
       },
-      KeyConditionExpression: '#partitionKey = :id AND #id_sign = :id_sign',
-      FilterExpression: 'attribute_exists(#id_sign)',
+      KeyConditionExpression: '#partitionKey = :id',
       TableName: Environment.tableName
     };
   }
-
+ /*  AND #id_sign = :id_sign */
   public createUpdateSignItemInput(
     sign: Sign
   ): UpdateItemInput {

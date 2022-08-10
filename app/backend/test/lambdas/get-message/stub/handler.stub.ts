@@ -14,18 +14,18 @@ export class HandlerStub {
     this.scenario = scenarioItem;
   }
 
-  public getImageSawDB() {
+  public getHoroscopozandoDB() {
     return this.horoscopozandoDB;
   }
 
   public getDependeciesFactoryStub(): DependenciesFactoryInterface {
     const dependenciesFactory = new DependenciesFactory();
-    dependenciesFactory.getHoroscopozandoDB = sinon.stub().returns(this.getImageSawDBStub());
+    dependenciesFactory.getHoroscopozandoDB = sinon.stub().returns(this.getHoroscopozandoDBStub());
 
     return dependenciesFactory;
   }
 
-  private getImageSawDBStub(): HoroscopozandoDBProviderInterface {
+  private getHoroscopozandoDBStub(): HoroscopozandoDBProviderInterface {
     const dbClient: DBClient = new DBClient();
     const horoscopozandoInputFactory: HoroscopozandoInputFactory = new HoroscopozandoInputFactory();
     const horoscopozandoDB = new HoroscopozandoDB(dbClient, horoscopozandoInputFactory);

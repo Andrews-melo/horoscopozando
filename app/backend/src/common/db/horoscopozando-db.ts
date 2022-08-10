@@ -12,15 +12,10 @@ export class HoroscopozandoDB implements HoroscopozandoDBProviderInterface {
     private readonly horoscopozandoDBInputFactory: HoroscopozandoInputFactory
   ) { }
 
-  public async getMessage(idSign: string, id: string): Promise<Horoscopozando | null> {
-    const params = this.horoscopozandoDBInputFactory.createGetMessageQueryInput(idSign, id);
-    console.log('here',params);
-    
+  public async getMessage(idSign: string, id: string): Promise<Horoscopozando | null> {    
+    const params = this.horoscopozandoDBInputFactory.createGetMessageQueryInput(idSign, id);  
     const resp = await this.dbClient.query(params);
-
-    if (resp) {
-      console.log('resp', resp);
-      
+    if (resp) {      
       return Horoscopozando.fromJsonObject(resp) as Horoscopozando;
     }
 

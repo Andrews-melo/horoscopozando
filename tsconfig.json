@@ -12,9 +12,9 @@
     "removeComments": true,
     "noLib": false,
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "experimentalDecorators": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "target": "ES2020",
     "sourceMap": false,
     "moduleResolution": "node",
@@ -22,7 +22,7 @@
     "lib": ["es2020", "dom"],
     "esModuleInterop": true,
     "paths": {
-      "@ss-image-saw/*": ["app/*/src"]
+      "@horoscopozando/*": ["app/*/src"]
     },
     "skipLibCheck": true,
     "strictPropertyInitialization": false

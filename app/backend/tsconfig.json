@@ -8,8 +8,8 @@
     ],
     "sourceMap": false,
     "paths": {
-      "@ss-image-saw/*": [
-        "node_modules/@ss-image-saw/*/src"
+      "@horoscopozando/*": [
+        "node_modules/@horoscopozando/*/src"
       ]
     }
   },
