@@ -3,14 +3,12 @@ import { Constants } from '../utils/constants';
 
 @JsonObject('Message')
 export class Message {
+  @JsonProperty('id', String)
+  public id = Constants.EMPTY_STRING;
+
   @JsonProperty('message', String)
-  private _message = Constants.EMPTY_STRING;
+  public message = Constants.EMPTY_STRING;
 
-  public get message() {
-    return this._message;
-  }
-
-  public set message(value) {
-    this._message = value;
-  }
+  @JsonProperty('idSign', String)
+  public idSign = Constants.EMPTY_STRING;
 }

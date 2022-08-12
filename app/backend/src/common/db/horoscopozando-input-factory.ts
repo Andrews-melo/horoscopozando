@@ -1,79 +1,82 @@
+import { Message } from './../model/message.model';
 import { Sign } from '../model/sign.model';
-import { Environment } from "../utils/environment";
-import { QueryInput, UpdateItemInput } from 'aws-sdk/clients/dynamodb';
+import { Environment } from '../utils/environment';
+import { UpdateCommandInput, PutCommandInput } from '@aws-sdk/lib-dynamodb';
 
 export class HoroscopozandoInputFactory {
   private static readonly ID = 'id';
   private static readonly ID_SIGN = 'id_sign';
   private static readonly SIGN = 'sign';
   private static readonly MESSAGE = 'message';
+  private static readonly CURRENT_DATE = 'current_date';
 
-  public createGetMessageQueryInput(
-    IdSign: string,
-    id: string
-  ): QueryInput {
+  public createGetMessageQueryInput(IdSign: string, id: string): QueryInput {
     return {
       ExpressionAttributeNames: {
         '#partitionKey': HoroscopozandoInputFactory.ID,
         '#message': HoroscopozandoInputFactory.MESSAGE,
         '#sign': HoroscopozandoInputFactory.SIGN,
-        '#id_sign': HoroscopozandoInputFactory.ID_SIGN
+        '#id_sign': HoroscopozandoInputFactory.ID_SIGN,
       },
       ExpressionAttributeValues: {
         ':id_sign': { S: IdSign },
-        ':id': { S: id }
+        ':id': { S: id },
       },
       KeyConditionExpression: '#partitionKey = :id',
-      TableName: Environment.tableName
+      TableName: Environment.tableName,
     };
   }
- /*  AND #id_sign = :id_sign */
-  public createUpdateSignItemInput(
-    sign: Sign
-  ): UpdateItemInput {
+
+  public createUpdateSignItemInput(sign: Sign): UpdateCommandInput {
     return {
       ExpressionAttributeNames: {
         '#sign': HoroscopozandoInputFactory.SIGN,
       },
       ExpressionAttributeValues: {
-        ':sign': { S: sign.name }
+        ':sign': { S: sign.name },
       },
       TableName: Environment.tableName,
-      Key: { id: { S: sign.id } }
+      Key: { id: { S: sign.id } },
     };
   }
 
-  public createUpdateMessageItemInput(
+  public createPutSignItemInput(sign: Sign): PutCommandInput {
+    return {
+      TableName: Environment.tableName,
+      Item: {
+        id: sign.id,
+        name: sign.name,
+      },
+    };
+  }
+
+  public createPutMessageItemInput(msg: Message): PutCommandInput {
+    return {
+      TableName: Environment.tableName,
+      Item: {
+        id: msg.id,
+        message: msg.message,
+        id_sign: msg.idSign,
+      },
+    };
+  }
+
+  public createUpdateCurrentDateItemInput(
     id: string,
-    message: string
-  ): UpdateItemInput {
+    date: string
+  ): UpdateCommandInput {
     return {
-      ExpressionAttributeNames: {
-        '#partitionKey': HoroscopozandoInputFactory.ID,
-        '#message': HoroscopozandoInputFactory.MESSAGE,
+      Key: {
+        id: id,
       },
+      ExpressionAttributeNames: {
+        '#cd': HoroscopozandoInputFactory.CURRENT_DATE,
+      },
+      UpdateExpression: 'set #cd = :currentDate',
       ExpressionAttributeValues: {
-        ':message': { S: message }
+        ':currentDate': date,
       },
       TableName: Environment.tableName,
-      Key: { id: { S: id } }
-    };
-  }
-
-  public createUpdateCurrentMessageItemInput(
-    idSign: string,
-    id: string
-  ): UpdateItemInput {
-    return {
-      ExpressionAttributeNames: {
-        '#partitionKey': HoroscopozandoInputFactory.ID,
-        '#id_sign': HoroscopozandoInputFactory.ID_SIGN
-      },
-      ExpressionAttributeValues: {
-        ':id_sign': { S: idSign }
-      },
-      TableName: Environment.tableName,
-      Key: { id: { S: id } }
     };
   }
 }

@@ -1,44 +1,44 @@
-import { AWSError } from 'aws-sdk/lib/error';
-import { PromiseResult } from 'aws-sdk/lib/request';
-import AWS, { DynamoDB } from 'aws-sdk';
+import { Environment } from './../utils/environment';
+import {
+  DeleteCommand,
+  DeleteCommandInput,
+  PutCommand,
+  PutCommandInput,
+  QueryCommand,
+  QueryCommandInput,
+  QueryCommandOutput,
+  UpdateCommand,
+  UpdateCommandInput,
+} from '@aws-sdk/lib-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
 export interface DBClientInterface {
-  put(params: DynamoDB.PutItemInput);
-  update(params: DynamoDB.UpdateItemInput);
-  query(params: DynamoDB.QueryInput): Promise<PromiseResult<DynamoDB.QueryOutput, AWSError>>;
-  batchWrite(params: DynamoDB.BatchWriteItemInput);
-  transactWriteItems(params: DynamoDB.TransactWriteItemsInput);
-  delete(params: DynamoDB.Delete);
+  put(params: PutCommandInput);
+  update(params: UpdateCommandInput);
+  query(params: QueryCommandInput): Promise<QueryCommandOutput>;
+  delete(params: DeleteCommandInput);
 }
 
 export class DBClient implements DBClientInterface {
-  private readonly documentClient: AWS.DynamoDB;
+  private readonly documentClient: DynamoDBClient;
 
   constructor() {
-    this.documentClient = new AWS.DynamoDB();
+    this.documentClient = new DynamoDBClient({ region: Environment.region });
   }
 
-  public async put(params: DynamoDB.PutItemInput) {
-    await this.documentClient.putItem(params).promise();
+  public async put(params: PutCommandInput) {
+    await this.documentClient.send(new PutCommand(params));
   }
 
-  public async update(params: DynamoDB.UpdateItemInput) {
-    await this.documentClient.updateItem(params).promise();
+  public async update(params: UpdateCommandInput) {
+    await this.documentClient.send(new UpdateCommand(params));
   }
 
-  public query(params: DynamoDB.QueryInput): Promise<PromiseResult<DynamoDB.QueryOutput, AWSError>> {
-    return this.documentClient.query(params).promise();
+  public async query(params: QueryCommandInput): Promise<QueryCommandOutput> {
+    return this.documentClient.send(new QueryCommand(params));
   }
 
-  public async batchWrite(params: DynamoDB.BatchWriteItemInput) {
-    await this.documentClient.batchWriteItem(params).promise();
-  }
-
-  public async transactWriteItems(params: DynamoDB.TransactWriteItemsInput) {
-    await this.documentClient.transactWriteItems(params).promise();
-  }
-
-  public async delete(params: DynamoDB.Delete) {
-    await this.documentClient.deleteItem(params).promise();
+  public async delete(params: DeleteCommandInput) {
+    await this.documentClient.send(new DeleteCommand(params));
   }
 }
