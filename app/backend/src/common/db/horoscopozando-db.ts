@@ -3,7 +3,7 @@ import { Horoscopozando } from '../model/horoscopozando.model';
 import { HoroscopozandoInputFactory } from './horoscopozando-input-factory';
 
 export interface HoroscopozandoDBProviderInterface {
-  getMessage(idSign: string, id: string): Promise<Horoscopozando | null>;
+  getMessage(idSign: string): Promise<Horoscopozando | null>;
   updateCurrentDate(id: string, date: string): Promise<void>;
 }
 export class HoroscopozandoDB implements HoroscopozandoDBProviderInterface {
@@ -12,14 +12,9 @@ export class HoroscopozandoDB implements HoroscopozandoDBProviderInterface {
     private readonly horoscopozandoDBInputFactory: HoroscopozandoInputFactory
   ) {}
 
-  public async getMessage(
-    idSign: string,
-    id: string
-  ): Promise<Horoscopozando | null> {
-    const params = this.horoscopozandoDBInputFactory.createGetMessageQueryInput(
-      idSign,
-      id
-    );
+  public async getMessage(idSign: string): Promise<Horoscopozando | null> {
+    const params =
+      this.horoscopozandoDBInputFactory.createGetMessageQueryInput(idSign);
     const resp = await this.dbClient.query(params);
     if (resp) {
       return Horoscopozando.fromJsonObject(resp) as Horoscopozando;

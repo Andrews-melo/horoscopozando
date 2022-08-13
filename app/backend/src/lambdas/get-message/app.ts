@@ -9,15 +9,14 @@ const handler = async (event: APIGatewayEvent, context: Context, callback: Callb
     queryStringParameters: parameters,
   } = event;
 
-  const idSign = parameters ? parameters['idSign'] : Constants.EMPTY_STRING;
-  const id = parameters ? parameters['id'] : Constants.EMPTY_STRING;
-
+  const birthday = parameters ? parameters['birthday'] : Constants.EMPTY_STRING;
+ 
   const dependenciesFactory = new DependenciesFactory();
   const getMessageHandler = new GetMessageHandler(dependenciesFactory);
 
   context.callbackWaitsForEmptyEventLoop = false;
   try {
-    const messageResponse = await getMessageHandler.getMessage(idSign, id);
+    const messageResponse = await getMessageHandler.getMessage(birthday);
     const response = Http.buildResponse(JSON.stringify(messageResponse));
     return callback(null, response);
 

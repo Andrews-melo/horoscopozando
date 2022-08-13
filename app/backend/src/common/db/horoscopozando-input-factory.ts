@@ -1,7 +1,7 @@
 import { Message } from './../model/message.model';
 import { Sign } from '../model/sign.model';
 import { Environment } from '../utils/environment';
-import { UpdateCommandInput, PutCommandInput } from '@aws-sdk/lib-dynamodb';
+import { UpdateCommandInput, PutCommandInput, QueryCommandInput } from '@aws-sdk/lib-dynamodb';
 
 export class HoroscopozandoInputFactory {
   private static readonly ID = 'id';
@@ -10,19 +10,20 @@ export class HoroscopozandoInputFactory {
   private static readonly MESSAGE = 'message';
   private static readonly CURRENT_DATE = 'current_date';
 
-  public createGetMessageQueryInput(IdSign: string, id: string): QueryInput {
+  public createGetMessageQueryInput(IdSign: string): QueryCommandInput {
     return {
       ExpressionAttributeNames: {
         '#partitionKey': HoroscopozandoInputFactory.ID,
         '#message': HoroscopozandoInputFactory.MESSAGE,
         '#sign': HoroscopozandoInputFactory.SIGN,
         '#id_sign': HoroscopozandoInputFactory.ID_SIGN,
+        '#current_date': HoroscopozandoInputFactory.CURRENT_DATE
       },
       ExpressionAttributeValues: {
-        ':id_sign': { S: IdSign },
-        ':id': { S: id },
+        ':idSign': { S: IdSign },
+        ':currentDate': new Date()
       },
-      KeyConditionExpression: '#partitionKey = :id',
+      KeyConditionExpression: '#id_sign = :idSign AND #current_date = :currentDate',
       TableName: Environment.tableName,
     };
   }

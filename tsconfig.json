@@ -13,7 +13,7 @@
     "noLib": false,
     "strict": true,
     "noUnusedLocals": false,
-    "experimentalDecorators": false,
+    "experimentalDecorators": true,
     "noUnusedParameters": false,
     "target": "ES2020",
     "sourceMap": false,
