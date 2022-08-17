@@ -34,10 +34,10 @@ export class HoroscopozandoInputFactory {
         '#sign': HoroscopozandoInputFactory.SIGN,
       },
       ExpressionAttributeValues: {
-        ':sign': { S: sign.name },
+        ':sign': sign.name ,
       },
       TableName: Environment.tableName,
-      Key: { id: { S: sign.id } },
+      Key: { id: sign.id },
     };
   }
 

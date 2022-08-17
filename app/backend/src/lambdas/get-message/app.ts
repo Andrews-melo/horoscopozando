@@ -9,8 +9,7 @@ const handler = async (event: APIGatewayEvent, context: Context, callback: Callb
     queryStringParameters: parameters,
   } = event;
 
-  const birthday = parameters ? parameters['birthday'] : Constants.EMPTY_STRING;
- 
+  const birthday = parameters ? parameters[Constants.BIRTHDAY] : Constants.EMPTY_STRING;
   const dependenciesFactory = new DependenciesFactory();
   const getMessageHandler = new GetMessageHandler(dependenciesFactory);
 

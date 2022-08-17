@@ -86,12 +86,23 @@ export class SignDictionary implements SignDictionaryInterface {
       endDate: new Date(eDate).getTime(),
     };
   }
+
+  public buildDate(date: string): any {
+    const newDate = new Date(date);
+    const day = newDate.getDate();
+    const month = newDate.getMonth() + 1;
+
+    return new Date(`${month}-${day}`);
+  }
+
   public getSign(birthday: string): Sign | undefined {
-    if (birthday && this.signs) {
+    const birth = this.buildDate(birthday);
+
+    if (birth && this.signs) {
       return this.signs.find(
         (value: Sign) =>
-          birthday >= value.dateRange.startDate &&
-          birthday <= value.dateRange.endDate
+          birth >= value.dateRange.startDate &&
+          birth <= value.dateRange.endDate
       );
     }
     return undefined;

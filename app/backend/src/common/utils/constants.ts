@@ -8,4 +8,5 @@ export class Constants {
   public static readonly HTTP_STATUS_500 = 500;
   
   public static readonly EMPTY_STRING = '';
+  public static readonly BIRTHDAY = 'birthday';
 }
